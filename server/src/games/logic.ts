@@ -51,3 +51,13 @@ export const finished = (board: Board): boolean =>
   board
     .reduce((a,b) => a.concat(b) as Row)
     .every(symbol => symbol !== null)
+
+
+// export const isBoat = (playerSymbol: Symbol, from: Board, to: Board) => {
+//   const changes = from
+//     .map(
+//       (row, rowIndex) => row.map((symbol, columnIndex) => ({
+//         from: symbol, 
+//         to: to[rowIndex][columnIndex]
+//       }))
+//     )

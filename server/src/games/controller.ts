@@ -93,20 +93,30 @@ export default class GameController {
       throw new BadRequestError(`Invalid move`)
     }    
 
-    const winner = calculateWinner(update.board)
-    if (winner) {
-      game.winner = winner
-      game.status = 'finished'
-    }
-    else if (finished(update.board)) {
-      game.status = 'finished'
-    }
-    else {
-      game.turn = player.symbol === 'x' ? 'o' : 'x'
-    }
+    // const winner = calculateWinner(update.board)
+    // if (winner) {
+    //   game.winner = winner
+    //   game.status = 'finished'
+    // }
+    // else if (finished(update.board)) {
+    //   game.status = 'finished'
+    // }
+    // else {
+    //   game.turn = player.symbol === 'x' ? 'o' : 'x'
+    // }
+    // game.board = update.board
+    // await game.save()
+    
+    // io.emit('action', {
+    //   type: 'UPDATE_GAME',
+    //   payload: game
+    // })
+
+
+    game.turn = player.symbol === 'x' ? 'o' : 'x'
     game.board = update.board
     await game.save()
-    
+
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: game
