@@ -28,6 +28,9 @@ export class Game extends BaseEntity {
   @Column('text', {default: 'pending'})
   status: Status
 
+  @Column('integer', {default:0})
+  hits: number
+
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, {eager:true})

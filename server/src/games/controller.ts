@@ -3,18 +3,18 @@ import {
   Body, Patch 
 } from 'routing-controllers'
 import User from '../users/entity'
-import { Game, Player, Board } from './entities'
-import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
-import { Validate } from 'class-validator'
+import { Game, Player } from './entities'
+import {calculateWinner} from './logic'
+// import { Validate } from 'class-validator'
 import {io} from '../index'
 
-class GameUpdate {
+// class GameUpdate {
 
-  @Validate(IsBoard, {
-    message: 'Not a valid board'
-  })
-  board: Board
-}
+//   @Validate(IsBoard, {
+//     message: 'Not a valid board'
+//   })
+//   board: Board
+// }
 
 @JsonController()
 export default class GameController {
@@ -79,7 +79,7 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    @Body() update: GameUpdate
+    @Body() update //: GameUpdate
   ) {
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
@@ -88,10 +88,10 @@ export default class GameController {
 
     if (!player) throw new ForbiddenError(`You are not part of this game`)
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
-    if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
-    if (!isValidTransition(player.symbol, game.board, update.board)) {
-      throw new BadRequestError(`Invalid move`)
-    }    
+    // if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
+    // if (!isValidTransition(player.symbol, game.board, update.board)) {
+    //   throw new BadRequestError(`Invalid move`)
+    // }    
 
     // const winner = calculateWinner(update.board)
     // if (winner) {
@@ -104,19 +104,11 @@ export default class GameController {
     // else {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
-    // game.board = update.board
-    // await game.save()
-    
-    // io.emit('action', {
-    //   type: 'UPDATE_GAME',
-    //   payload: game
-    // })
-
-
-    game.turn = player.symbol === 'x' ? 'o' : 'x'
     game.board = update.board
-    await game.save()
+    game.hits = game.hits + 1
 
+    await game.save()
+    
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: game
@@ -139,4 +131,3 @@ export default class GameController {
     return Game.find()
   }
 }
-

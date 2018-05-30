@@ -19,26 +19,25 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  makeMove = (toRow, toCell) => {
-    const {game, updateGame} = this.props
-
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) return game.turn
-        else return cell
-      })
-    )
-    updateGame(game.id, board)
+  makeMove = (points) => {
+    const {users, game, updateGame, userId} = this.props
+    const board = game.board
+    if(game.players[0].userId===userId){
+      
+    updateGame(game.id, [board[0]+points,board[1]])
+    } else { 
+    
+    updateGame(game.id, [board[0],board[1]+points])
   }
-
+ }
 
 
   render() {
     const {game, users, authenticated, userId} = this.props
 
     if (!authenticated) return (
-			<Redirect to="/login" />
-		)
+            <Redirect to="/login" />
+        )
 
     if (game === null || users === null) return 'Loading...'
     if (!game) return 'Not found'
@@ -50,15 +49,15 @@ class GameDetails extends PureComponent {
       .map(p => p.userId)[0]
 
     return (<Paper className="outer-paper">
-      <h1>Game #{game.id}</h1>
+      <h1>Click Cricket - {game.id}</h1>
 
       <p>Status: {game.status}</p>
 
-      {
-        game.status === 'started' &&
-        player && player.symbol === game.turn &&
-        <div>It's your turn!</div>
-      }
+      <p>Your Score: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p>
+      <p>Overs: {Math.floor(game.hits/6)}.{game.hits%6}</p>
+
+      
+  <p> {(game.players[1])?(users[game.players[0].userId].firstName===users[userId].firstName)?users[game.players[1].userId].firstName+'\'s Score: ' + game.board[1]:users[game.players[0].userId].firstName+'\'s Score: ' + game.board[0]:'**Waiting**'}</p>
 
       {
         game.status === 'pending' &&
@@ -76,6 +75,9 @@ class GameDetails extends PureComponent {
       {
         game.status !== 'pending' &&
         <Board board={game.board} makeMove={this.makeMove} />
+
+        // console.log(game.player)
+
       }
     </Paper>)
   }
@@ -85,7 +87,8 @@ const mapStateToProps = (state, props) => ({
   authenticated: state.currentUser !== null,
   userId: state.currentUser && userId(state.currentUser.jwt),
   game: state.games && state.games[props.match.params.id],
-  users: state.users
+  users: state.users,
+  players: state.players
 })
 
 const mapDispatchToProps = {
