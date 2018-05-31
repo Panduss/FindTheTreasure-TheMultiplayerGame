@@ -19,15 +19,24 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  makeMove = (points) => {
+  makeMove = (shot) => {
     const {users, game, updateGame, userId} = this.props
     const board = game.board
+    const boat = game.boat
+
     if(game.players[0].userId===userId){
-      
-    updateGame(game.id, [board[0]+points,board[1]])
+
+      if(shot == boat) {
+        alert('You found the boat!')
+      } else {
+        updateGame(game.id, [board[0]+shot,board[1]])
+      }
     } else { 
-    
-    updateGame(game.id, [board[0],board[1]+points])
+      if(shot == boat) {
+        alert('You found the boat!')
+      } else {
+    updateGame(game.id, [board[0],board[1]+shot])
+      }
   }
  }
 
@@ -49,15 +58,11 @@ class GameDetails extends PureComponent {
       .map(p => p.userId)[0]
 
     return (<Paper className="outer-paper">
-      <h1>Click Cricket - {game.id}</h1>
+      <h1>Spot the boat - {game.id}</h1>
 
       <p>Status: {game.status}</p>
 
-      <p>Your Score: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p>
-      <p>Overs: {Math.floor(game.hits/6)}.{game.hits%6}</p>
-
-      
-  <p> {(game.players[1])?(users[game.players[0].userId].firstName===users[userId].firstName)?users[game.players[1].userId].firstName+'\'s Score: ' + game.board[1]:users[game.players[0].userId].firstName+'\'s Score: ' + game.board[0]:'**Waiting**'}</p>
+      <p>Your shots: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p>
 
       {
         game.status === 'pending' &&

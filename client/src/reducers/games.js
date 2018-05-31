@@ -13,7 +13,6 @@ export default (state = null, {type, payload}) => {
         ...state,
         [payload.id]: payload
       }
-      console.log('here is the boat:', payload.boat)
 
     case UPDATE_GAME:
       return {
