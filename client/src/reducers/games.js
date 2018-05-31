@@ -4,6 +4,8 @@ import {ADD_GAME, UPDATE_GAME, UPDATE_GAMES} from '../actions/games'
 The state will contain the games in an object with the game ID as key
 */
 
+const numbers= [1,2,3,4,5,6,7,8,9]
+
 export default (state = null, {type, payload}) => {
   switch (type) {
     case ADD_GAME:

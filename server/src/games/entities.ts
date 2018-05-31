@@ -10,6 +10,10 @@ type Status = 'pending' | 'started' | 'finished'
 const emptyRow: Row = [null, null, null]
 const emptyBoard: Board = [ emptyRow, emptyRow, emptyRow ]
 
+const numbers= [1,2,3,4,5,6,7,8,9]
+
+
+
 @Entity()
 export class Game extends BaseEntity {
 
@@ -27,6 +31,9 @@ export class Game extends BaseEntity {
 
   @Column('text', {default: 'pending'})
   status: Status
+
+  @Column('integer', {default:0})
+  boat: number = numbers[Math.floor(Math.random() * numbers.length)]
 
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations

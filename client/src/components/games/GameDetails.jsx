@@ -19,26 +19,34 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  makeMove = (toRow, toCell) => {
-    const {game, updateGame} = this.props
+  makeMove = (shot) => {
+    const {users, game, updateGame, userId} = this.props
+    const board = game.board
+    const boat = game.boat
 
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) return game.turn
-        else return cell
-      })
-    )
-    updateGame(game.id, board)
+    if(game.players[0].userId===userId){
+
+      if(shot == boat) {
+        alert('You found the boat!')
+      } else {
+        updateGame(game.id, [board[0]+shot,board[1]])
+      }
+    } else { 
+      if(shot == boat) {
+        alert('You found the boat!')
+      } else {
+    updateGame(game.id, [board[0],board[1]+shot])
+      }
   }
-
+ }
 
 
   render() {
     const {game, users, authenticated, userId} = this.props
 
     if (!authenticated) return (
-			<Redirect to="/login" />
-		)
+            <Redirect to="/login" />
+        )
 
     if (game === null || users === null) return 'Loading...'
     if (!game) return 'Not found'
@@ -50,15 +58,11 @@ class GameDetails extends PureComponent {
       .map(p => p.userId)[0]
 
     return (<Paper className="outer-paper">
-      <h1>Game #{game.id}</h1>
+      <h1>Spot the boat - {game.id}</h1>
 
       <p>Status: {game.status}</p>
 
-      {
-        game.status === 'started' &&
-        player && player.symbol === game.turn &&
-        <div>It's your turn!</div>
-      }
+      <p>Your shots: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p>
 
       {
         game.status === 'pending' &&
@@ -76,6 +80,9 @@ class GameDetails extends PureComponent {
       {
         game.status !== 'pending' &&
         <Board board={game.board} makeMove={this.makeMove} />
+
+        // console.log(game.player)
+
       }
     </Paper>)
   }
@@ -85,7 +92,8 @@ const mapStateToProps = (state, props) => ({
   authenticated: state.currentUser !== null,
   userId: state.currentUser && userId(state.currentUser.jwt),
   game: state.games && state.games[props.match.params.id],
-  users: state.users
+  users: state.users,
+  players: state.players
 })
 
 const mapDispatchToProps = {
