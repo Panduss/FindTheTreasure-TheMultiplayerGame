@@ -8,14 +8,6 @@ import {calculateWinner} from './logic'
 // import { Validate } from 'class-validator'
 import {io} from '../index'
 
-// class GameUpdate {
-
-//   @Validate(IsBoard, {
-//     message: 'Not a valid board'
-//   })
-//   board: Board
-// }
-
 @JsonController()
 export default class GameController {
 
@@ -34,6 +26,7 @@ export default class GameController {
     }).save()
 
     const game = await Game.findOneById(entity.id)
+   
 
     io.emit('action', {
       type: 'ADD_GAME',
@@ -105,7 +98,7 @@ export default class GameController {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
     game.board = update.board
-    game.hits = game.hits + 1
+    // game.hits = game.hits + 1
 
     await game.save()
     

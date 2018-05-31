@@ -1,9 +1,6 @@
 import React from 'react'
 import './Board.css'
-const numbers= [1,2,3,4,5,6,7,8,9]
-export const randomShip = numbers[Math.floor(Math.random() * numbers.length)]
 
-console.log(randomShip)
 
 export default (props) =>
     <div>

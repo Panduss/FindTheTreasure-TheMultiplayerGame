@@ -9,6 +9,8 @@ export const UPDATE_GAMES = 'UPDATE_GAMES'
 export const JOIN_GAME_SUCCESS = 'JOIN_GAME_SUCCESS'
 export const UPDATE_GAME_SUCCESS = 'UPDATE_GAME_SUCCESS'
 
+
+
 const updateGames = games => ({
   type: UPDATE_GAMES,
   payload: games
@@ -58,6 +60,7 @@ export const joinGame = (gameId) => (dispatch, getState) => {
 export const createGame = () => (dispatch, getState) => {
   const state = getState()
   const jwt = state.currentUser.jwt
+  
 
   if (isExpired(jwt)) return dispatch(logout())
 
