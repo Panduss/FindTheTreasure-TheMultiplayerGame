@@ -100,27 +100,22 @@ export default class GameController {
 
     const boat = game.boat
     const lastshot = update.shot
+    const winner = calculateWinner(lastshot, boat)
+    const gameOver = () => {
+      game.winner = user.firstName
+      game.status = 'finished'
+    }
     
     if(game.players[0].userId===user.id) {
       game.lastshotP1 = lastshot;
 
-      const winner = calculateWinner(lastshot, boat)
-      if (winner) {
-        game.winner = user.firstName
-        game.status = 'finished'
-        console.log('Player 1 won!!!')
-        console.log(user.firstName)
-        
-      }
-
+      if (winner) gameOver()
 
     } else {
       game.lastshotP2 = lastshot
+
+      if (winner) gameOver()
     }
-
-    
-
-
 
     await game.save()
     
