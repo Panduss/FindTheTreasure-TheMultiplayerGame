@@ -97,17 +97,30 @@ export default class GameController {
     // else {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
-    console.log(player)
-    console.log('User', user, 'Just shot at', update.shot)
+
+    const boat = game.boat
     const lastshot = update.shot
     
     if(game.players[0].userId===user.id) {
-      game.lastshotP1 = lastshot
+      game.lastshotP1 = lastshot;
+
+      const winner = calculateWinner(lastshot, boat)
+      if (winner) {
+        game.winner = user.firstName
+        game.status = 'finished'
+        console.log('Player 1 won!!!')
+        console.log(user.firstName)
+        
+      }
+
+
     } else {
       game.lastshotP2 = lastshot
     }
 
-  
+    
+
+
 
     await game.save()
     
