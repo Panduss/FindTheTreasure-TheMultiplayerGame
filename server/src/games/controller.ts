@@ -97,9 +97,17 @@ export default class GameController {
     // else {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
+    console.log(player)
+    console.log('User', user, 'Just shot at', update.shot)
     const lastshot = update.shot
-    game.lastshot = lastshot
+    
+    if(game.players[0].userId===user.id) {
+      game.lastshotP1 = lastshot
+    } else {
+      game.lastshotP2 = lastshot
+    }
 
+  
 
     await game.save()
     
