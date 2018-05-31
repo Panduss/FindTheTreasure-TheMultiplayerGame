@@ -9,7 +9,7 @@ import Board from './Board'
 import './GameDetails.css'
 
 class GameDetails extends PureComponent {
-
+ 
   componentWillMount() {
     if (this.props.authenticated) {
       if (this.props.game === null) this.props.getGames()
@@ -22,6 +22,7 @@ class GameDetails extends PureComponent {
   makeMove = (shot) => {
     const {users, game, updateGame, userId} = this.props
     const board = game.board
+    const lastShot = game.lastShot
     const boat = game.boat
 
     if(game.players[0].userId===userId){
@@ -29,16 +30,16 @@ class GameDetails extends PureComponent {
       if(shot == boat) {
         alert('You found the boat!')
       } else {
-        updateGame(game.id, [board[0]+shot,board[1]])
+        updateGame(game.id, shot)
       }
     } else { 
       if(shot == boat) {
         alert('You found the boat!')
       } else {
-    updateGame(game.id, [board[0],board[1]+shot])
+    updateGame(game.id, shot)
       }
+    }
   }
- }
 
 
   render() {
@@ -62,7 +63,13 @@ class GameDetails extends PureComponent {
 
       <p>Status: {game.status}</p>
 
-      <p>Your shots: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p>
+      {/* <p>Your shots: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p> */}
+
+      {
+        game.status === 'started' &&
+        player && player.symbol === game.turn &&
+        <div>It's your turn!</div>
+      }
 
       {
         game.status === 'pending' &&

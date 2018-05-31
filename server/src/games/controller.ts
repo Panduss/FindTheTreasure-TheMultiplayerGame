@@ -72,7 +72,7 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    @Body() update //: GameUpdate
+    @Body() update 
   ) {
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
@@ -97,8 +97,9 @@ export default class GameController {
     // else {
     //   game.turn = player.symbol === 'x' ? 'o' : 'x'
     // }
-    game.board = update.board
-    // game.hits = game.hits + 1
+    const lastshot = update.shot
+    game.lastshot = lastshot
+
 
     await game.save()
     

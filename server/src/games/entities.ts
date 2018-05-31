@@ -35,6 +35,9 @@ export class Game extends BaseEntity {
   @Column('integer', {default:0})
   boat: number = numbers[Math.floor(Math.random() * numbers.length)]
 
+  @Column('integer', {nullable:true})
+  lastshot: number
+
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, {eager:true})
