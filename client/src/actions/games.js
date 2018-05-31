@@ -82,5 +82,5 @@ export const updateGame = (gameId, shot) => (dispatch, getState) => {
     .set('Authorization', `Bearer ${jwt}`)
     .send({ shot })
     .then(_ => dispatch(updateGameSuccess()))
-    .catch(err => console.error(err))
+    .catch(err => alert("It's not your turn, smartass"))
 }

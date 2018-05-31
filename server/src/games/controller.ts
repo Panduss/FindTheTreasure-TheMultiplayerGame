@@ -105,6 +105,8 @@ export default class GameController {
       game.winner = user.firstName
       game.status = 'finished'
     }
+
+  if (user.id == game.lastMove) throw new BadRequestError(`It's not your turn`)
     
     if(game.players[0].userId===user.id) {
       game.lastshotP1 = lastshot;
@@ -116,6 +118,12 @@ export default class GameController {
 
       if (winner) gameOver()
     }
+
+  game.lastMove = user.id
+
+
+
+
 
     await game.save()
     
