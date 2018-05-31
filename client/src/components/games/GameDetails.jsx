@@ -21,24 +21,11 @@ class GameDetails extends PureComponent {
 
   makeMove = (shot) => {
     const {users, game, updateGame, userId} = this.props
-    const board = game.board
     const lastShot = game.lastShot
     const boat = game.boat
 
-    if(game.players[0].userId===userId){
 
-      if(shot == boat) {
-        alert('You found the boat!')
-      } else {
-        updateGame(game.id, shot)
-      }
-    } else { 
-      if(shot == boat) {
-        alert('You found the boat!')
-      } else {
     updateGame(game.id, shot)
-      }
-    }
   }
 
 
