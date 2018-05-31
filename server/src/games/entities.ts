@@ -41,6 +41,9 @@ export class Game extends BaseEntity {
   @Column('integer', {nullable:true})
   lastshotP2: number
 
+  @Column('integer', {nullable: true})
+  lastMove: number | undefined
+
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, {eager:true})
