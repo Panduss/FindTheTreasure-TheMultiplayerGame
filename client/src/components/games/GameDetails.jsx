@@ -9,7 +9,7 @@ import Board from './Board'
 import './GameDetails.css'
 
 class GameDetails extends PureComponent {
-
+ 
   componentWillMount() {
     if (this.props.authenticated) {
       if (this.props.game === null) this.props.getGames()
@@ -63,6 +63,12 @@ class GameDetails extends PureComponent {
       <p>Status: {game.status}</p>
 
       <p>Your shots: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p>
+
+      {
+        game.status === 'started' &&
+        player && player.symbol === game.turn &&
+        <div>It's your turn!</div>
+      }
 
       {
         game.status === 'pending' &&
