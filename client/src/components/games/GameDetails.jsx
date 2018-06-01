@@ -40,20 +40,30 @@ class GameDetails extends PureComponent {
     if (!game) return 'Not found'
 
     const player = game.players.find(p => p.userId === userId)
+    // const nextMove = game.players.find(n => n.userId === game.lastMove)
+
 
     const winner = game.winner
+    const lastMove = game.lastMove
 
     return (<Paper className="outer-paper">
       <h1>Spot the boat - {game.id}</h1>
 
       <p>Status: {game.status}</p>
+      {/* <p>Last shot was made by: {player} </p> */}
 
       {/* <p>Your shots: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p> */}
 
       {
-        game.status === 'started' &&
-        player && player.symbol === game.turn &&
+        game.status === 'started' && 
+        userId !== game.lastMove &&
         <div>It's your turn!</div>
+      }
+
+      {
+      game.status === 'started' && 
+        userId === game.lastMove &&
+        <div>Wait for your turn!</div>
       }
 
       {
