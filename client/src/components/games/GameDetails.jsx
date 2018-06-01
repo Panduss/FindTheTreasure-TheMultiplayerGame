@@ -24,11 +24,13 @@ class GameDetails extends PureComponent {
     const {users, game, updateGame, userId} = this.props
     const lastShot = game.lastShot
     const boat = game.boat
-    
-    if(shot == boat) {
-      document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'green'
-    } else {
-      document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'red'
+
+    if (userId !== game.lastMove) {
+        if(shot == boat) {
+          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'green'
+        } else {
+          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'red'
+        }
     }
     updateGame(game.id, shot)
   }
