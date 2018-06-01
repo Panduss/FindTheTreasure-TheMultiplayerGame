@@ -7,8 +7,17 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+}
 
-  
+.joinButton {
+  border-radius: 50%;
+  height: 70px;
+  width:70px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  margin: auto;
+  display: block;
 }
 
 .helloo {

@@ -2,14 +2,21 @@
 h2 {
   margin-bottom: 16px;
   font-size: 14px;
+  font-family: 'Courier New', Courier, monospace;
+
 }
 
 .game-card {
   margin: 10px 10px 10px 0px;
+  padding: 20px;
+  font-family: 'Courier New', Courier, monospace;
+
 }
 
 .create-game {
   margin-top: 10px !important;
+  font-family: 'Courier New', Courier, monospace;
+
 }
 
 .outer-paper {
@@ -19,8 +26,12 @@ h2 {
   width: 60%;
   background-color: white;
   font-family: 'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
+
 }
 
 .gameStatus {
   text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+
 }

@@ -27,7 +27,7 @@ class GameDetails extends PureComponent {
 
     if (userId !== game.lastMove) {
         if(shot == boat) {
-          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'black'
+          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = '#daa520'
         } else {
           document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'transparent'
         }
@@ -54,12 +54,12 @@ class GameDetails extends PureComponent {
 
     return (<Paper className="outer-paper">
     <div className="helloo">
-      <h1 className='gameStatus'>Spot the boat - #{game.id}</h1>
+      <h1 className='gameStatus'>Find the treasure - #{game.id}</h1>
 
       {
         game.status === 'started' && 
         userId !== game.lastMove &&
-        <div className="gameTextDiv">It's your turn!</div>
+        <div className="gameTextDiv">Yarrrr! It's your turn!</div>
       }
 
       {
@@ -71,7 +71,7 @@ class GameDetails extends PureComponent {
       {
         game.status === 'pending' &&
         game.players.map(p => p.userId).indexOf(userId) === -1 &&
-        <button onClick={this.joinGame}>Join Game</button>
+        <button className="joinButton" onClick={this.joinGame}>Join Game</button>
       }
 
       {

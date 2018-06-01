@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react'
+import './SignupForm.css'
 
 export default class SignupForm extends PureComponent {
 	state = {}
@@ -19,22 +20,22 @@ export default class SignupForm extends PureComponent {
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<div>
-					<label htmlFor="email">Email</label>
+				<div className="signup">
+					<label htmlFor="email">Email</label><br></br>
 					<input type="email" name="email" id="email" value={
 						this.state.email || ''
 					} onChange={ this.handleChange } />
 				</div>
 
 				<div>
-					<label htmlFor="password">Password</label>
+					<label htmlFor="password">Password</label><br></br>
 					<input type="password" name="password" id="password" value={
 						this.state.password || ''
 					} onChange={ this.handleChange } />
 				</div>
 
 				<div>
-					<label htmlFor="confirmPassword">Confirm password</label>
+					<label htmlFor="confirmPassword">Confirm password</label><br></br>
 					<input type="password" name="confirmPassword" id="confirmPassword" value={
 						this.state.confirmPassword || ''
 					} onChange={ this.handleChange } />

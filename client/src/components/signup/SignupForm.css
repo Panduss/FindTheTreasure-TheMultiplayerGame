@@ -1,0 +1,14 @@
+.signup {
+    margin: auto;
+    display: block;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #daa520;
+    opacity: 0.9;
+    border-radius: 10% 10%;
+    width: 33%;
+    height: 33%;
+    padding: 30px;
+    text-align: center;
+    font-size: 20px;
+}
