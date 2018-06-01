@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper'
 import Board from './Board'
 import './GameDetails.css'
 
+
 class GameDetails extends PureComponent {
  
   componentWillMount() {
@@ -23,11 +24,14 @@ class GameDetails extends PureComponent {
     const {users, game, updateGame, userId} = this.props
     const lastShot = game.lastShot
     const boat = game.boat
-
-
+    
+    if(shot == boat) {
+      document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'green'
+    } else {
+      document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'red'
+    }
     updateGame(game.id, shot)
   }
-
 
   render() {
     const {game, users, authenticated, userId} = this.props
@@ -40,7 +44,7 @@ class GameDetails extends PureComponent {
     if (!game) return 'Not found'
 
     const player = game.players.find(p => p.userId === userId)
-    // const nextMove = game.players.find(n => n.userId === game.lastMove)
+
 
 
     const winner = game.winner
@@ -50,10 +54,6 @@ class GameDetails extends PureComponent {
       <h1>Spot the boat - {game.id}</h1>
 
       <p>Status: {game.status}</p>
-      {/* <p>Last shot was made by: {player} </p> */}
-
-      {/* <p>Your shots: {(game.players[0].userId===userId)?game.board[0]:game.board[1]}</p> */}
-
       {
         game.status === 'started' && 
         userId !== game.lastMove &&
@@ -82,8 +82,6 @@ class GameDetails extends PureComponent {
       {
         game.status !== 'pending' &&
         <Board board={game.board} makeMove={this.makeMove} />
-
-        // console.log(game.player)
 
       }
     </Paper>)

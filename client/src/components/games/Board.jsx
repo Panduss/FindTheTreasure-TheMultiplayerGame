@@ -1,6 +1,7 @@
 import React from 'react'
 import './Board.css'
-
+import {connect} from 'react-redux'
+import { color } from 'material-ui/colors';
 
 export default (props) =>
 <div>
