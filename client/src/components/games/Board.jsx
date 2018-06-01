@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { color } from 'material-ui/colors';
 
 export default (props) =>
-<div>
+<div className="board">
   <div>
     <button className="board-tile" onClick={(event) => props.makeMove(event.target.innerHTML)}>1</button>
     <button className="board-tile" onClick={(event) => props.makeMove(event.target.innerHTML)}>2</button>

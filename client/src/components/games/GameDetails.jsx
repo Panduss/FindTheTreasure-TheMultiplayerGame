@@ -27,9 +27,9 @@ class GameDetails extends PureComponent {
 
     if (userId !== game.lastMove) {
         if(shot == boat) {
-          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'green'
+          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'black'
         } else {
-          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'red'
+          document.getElementsByClassName("board-tile")[shot-1].style.backgroundColor = 'transparent'
         }
     }
     updateGame(game.id, shot)
@@ -53,19 +53,19 @@ class GameDetails extends PureComponent {
     const lastMove = game.lastMove
 
     return (<Paper className="outer-paper">
-      <h1>Spot the boat - {game.id}</h1>
+    <div className="helloo">
+      <h1 className='gameStatus'>Spot the boat - #{game.id}</h1>
 
-      <p>Status: {game.status}</p>
       {
         game.status === 'started' && 
         userId !== game.lastMove &&
-        <div>It's your turn!</div>
+        <div className="gameTextDiv">It's your turn!</div>
       }
 
       {
       game.status === 'started' && 
         userId === game.lastMove &&
-        <div>Wait for your turn!</div>
+        <div className="gameTextDiv">Wait for your turn!</div>
       }
 
       {
@@ -76,9 +76,12 @@ class GameDetails extends PureComponent {
 
       {
         winner &&
-        <p>Winner: {winner}</p>
+      <p className="gameText">Winner: {winner.split('@')[0]}</p>
       }
-
+      {
+      <p className="gameText">Status: {game.status}</p>
+      }
+      </div>
       <hr />
 
       {
@@ -86,7 +89,8 @@ class GameDetails extends PureComponent {
         <Board board={game.board} makeMove={this.makeMove} />
 
       }
-    </Paper>)
+    </Paper>
+    )
   }
 }
 

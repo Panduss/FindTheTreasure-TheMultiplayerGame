@@ -2,5 +2,33 @@
   margin-top: 20px;
   margin: auto;
   padding: 20px;
-  width: 60%;
+  width: 80%;
+  background-image: url("sea.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  
 }
+
+.helloo {
+  background-color: white;
+  padding: 10px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-radius: 27% 0%;
+  opacity: 0.7;
+ }
+
+ .gameText {
+   font-weight: bold;
+   font-size: 20px;
+ }
+
+ .gameTextDiv {
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+}
+
+
